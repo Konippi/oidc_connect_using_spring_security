@@ -36,15 +36,4 @@ public class LoginController {
         model.addAttribute("message", "Login Success");
         return "index";
     }
-
-    /**
-     * failed
-     *
-     * @return login failed page
-     */
-    @GetMapping("/failed")
-    public String failed(Model model) {
-        model.addAttribute("message", "Login Failed");
-        return "index";
-    }
 }

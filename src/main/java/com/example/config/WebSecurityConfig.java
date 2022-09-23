@@ -13,7 +13,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.oauth2Login()
             .defaultSuccessUrl("/success")
-            .failureUrl("/failed");
+            .failureUrl("/login?error");
         return http.build();
     }
 }
