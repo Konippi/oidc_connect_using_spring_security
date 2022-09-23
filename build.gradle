@@ -1,0 +1,59 @@
+buildscript {
+    ext {
+        springBootVersion = "2.7.3"
+    }
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        dependencies {
+            classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+            classpath "io.spring.gradle:dependency-management-plugin:1.0.14.RELEASE"
+        }
+    }
+}
+
+apply plugin: "org.springframework.boot"
+apply plugin: "io.spring.dependency-management"
+apply plugin: "java"
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+ext {
+    // directory
+    baseDirectory = projectDir.absolutePath.replaceAll("\\\\", "/")
+    resourcesDirectory = "src/main/resources"
+    javaDirectory = "src/main/java"
+    propertyDirectory = "${rootProject.rootDir.path}/${resourcesDirectory}"
+
+    // yml
+    environment = System.getProperty("spring.profiles.active")
+    basePropertyFile = "application-${environment}.yml"
+}
+
+dependencies {
+    // spring boot
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+
+    // thymeleaf
+    implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+    implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity5"
+
+    // spring security
+    implementation "org.springframework.boot:spring-boot-starter-security"
+    testImplementation "org.springframework.security:spring-security-test"
+    implementation "org.springframework.security:spring-security-oauth2-client"
+    implementation "org.springframework.security:spring-security-oauth2-jose"
+
+    // lombok
+    implementation 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor "org.projectlombok:lombok:1.18.24"
+    implementation 'org.projectlombok:lombok:1.18.24'
+}
