@@ -11,6 +11,16 @@ import org.springframework.security.web.SecurityFilterChain;
 public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        // limit access
+        http.authorizeRequests()
+                    .antMatchers("/")
+                    .permitAll()
+                    .antMatchers("/login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated();
+
+        // oauth
         http.oauth2Login()
             .defaultSuccessUrl("/success")
             .failureUrl("/login?error");
